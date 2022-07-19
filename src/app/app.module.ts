@@ -14,6 +14,8 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { AuthService } from './services/auth.service';
 import { AuthEffects } from './store/auth.effects';
 import { reducers } from './store/reducers/auth.reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -24,11 +26,12 @@ import { reducers } from './store/reducers/auth.reducers';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
     HttpClientModule,
     StoreModule.forRoot(reducers, {}),
     EffectsModule.forRoot([AuthEffects]),
-    AppRoutingModule
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
